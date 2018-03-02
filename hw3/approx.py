@@ -1,7 +1,7 @@
 import numpy as np
 
-def f(x):
-    return x**3 - 2
+def func(x):
+    return (4*x) + 2
 
 def df(f, x):
     h = 10.0**(-8)
@@ -32,3 +32,17 @@ def newton(f, x, tol):
     while (abs(f(x) > tol)):
         x = x - (f(x)/df(f, x))
     return x
+
+def dist(x):
+    return ( ((func(x) - y0)**2) + ((x - x0)**2))
+
+def g(x):
+    return df(dist, x)
+
+x1 = 1
+x0 = 1
+y0 = 1
+
+print(df(func, x1))
+
+
