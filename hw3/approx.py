@@ -4,7 +4,7 @@ m = 1
 b = 2
 
 def func(x):
-    return x**3 + x**2 + 2
+    return m*x + b
 
 def df(f, x):
     h = 10.0**(-8)
@@ -59,5 +59,5 @@ y0 = 1
 t = 10**(-8)
 
 
-print("DF: ", df(func, 1))
-derivative(func, 1)
+n = newton(func, x1, t)
+print(n)
