@@ -1,7 +1,7 @@
 import numpy as np
 
-m = 1
-b = 2
+m = 2.0
+b = 3.0
 
 def func(x):
     return m*x + b
@@ -38,14 +38,18 @@ def bisection(f, a, b, tol, N):
             b = p
 
 def newton(f, x, tol):
-    try:
-        while (abs(f(x) > tol)):
-            x = x - (f(x) / df(f, x))
-    except:
-        while (abs(f(x) > tol)):
-            x = x - (f(x) / derivative(f, x))
+    while (abs(f(x)) > tol):
+        x = x - (f(x) / derivative(f, x))
     return x
         
+def hybrid(f, tol, a, b, N):
+    t2 = tol/(10**(5))
+    p = bisection(f, a, b, tol, N)
+    n = newton(f, p, t2)
+    return n
+
+
+
 
 def dist(x):
     return ( ((func(x) - y0)**2) + ((x - x0)**2))
@@ -53,11 +57,17 @@ def dist(x):
 def g(x):
     return df(dist, x)
 
-x1 = 1
-x0 = 1
-y0 = 1
-t = 10**(-8)
+x1 = 0.0
+x0 = 0.0
+y0 = 1.0
+t = 10**(-10)
 
 
-n = newton(func, x1, t)
-print(n)
+n = newton(g, x1, t)
+i = 0
+h = None
+
+while h == None:
+    h = bisection(g, -5, 5, t, i)
+    i += 1
+print(i)
