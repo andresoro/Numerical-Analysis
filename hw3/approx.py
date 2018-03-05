@@ -1,15 +1,25 @@
 import numpy as np
 
+m = 1
+b = 2
+
 def func(x):
-    return (4*x) + 2
+    return x**3 + x**2 + 2
 
 def df(f, x):
     h = 10.0**(-8)
     ih = complex(0.0, h)
     compx = complex(x, 0.0)
-    fx = f(compx + ih)
-    return np.imag(fx)/h
+    return np.imag(f(compx+ih))/h
 
+def derivative(f, x):
+    h = 1
+    y = 0
+    while h > 10**(-8):
+        y = ((f(x+h) - (f(x)))/(h))
+        h = h/10
+        print(y)
+    return y
 
 def bisection(f, a, b, tol, N):
     i = 1 
@@ -30,7 +40,7 @@ def bisection(f, a, b, tol, N):
 
 def newton(f, x, tol):
     while (abs(f(x) > tol)):
-        x = x - (f(x)/df(f, x))
+        x = x - (f(x) / df(f, x))
     return x
 
 def dist(x):
@@ -42,7 +52,8 @@ def g(x):
 x1 = 1
 x0 = 1
 y0 = 1
+t = 10**(-8)
 
-print(df(func, x1))
 
-
+print("DF: ", df(f, 1))
+derivative(f, 1)
