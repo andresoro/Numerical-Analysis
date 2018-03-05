@@ -15,10 +15,9 @@ def df(f, x):
 def derivative(f, x):
     h = 1
     y = 0
-    while h > 10**(-8):
+    while h > 10**(-5):
         y = ((f(x+h) - (f(x)))/(h))
         h = h/10
-        print(y)
     return y
 
 def bisection(f, a, b, tol, N):
@@ -39,9 +38,14 @@ def bisection(f, a, b, tol, N):
             b = p
 
 def newton(f, x, tol):
-    while (abs(f(x) > tol)):
-        x = x - (f(x) / df(f, x))
+    try:
+        while (abs(f(x) > tol)):
+            x = x - (f(x) / df(f, x))
+    except:
+        while (abs(f(x) > tol)):
+            x = x - (f(x) / derivative(f, x))
     return x
+        
 
 def dist(x):
     return ( ((func(x) - y0)**2) + ((x - x0)**2))
