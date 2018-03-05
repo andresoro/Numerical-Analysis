@@ -55,5 +55,5 @@ y0 = 1
 t = 10**(-8)
 
 
-print("DF: ", df(f, 1))
-derivative(f, 1)
+print("DF: ", df(func, 1))
+derivative(func, 1)
