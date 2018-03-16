@@ -48,7 +48,14 @@ def hybrid(f, tol, a, b, N):
     n = newton(f, p, t2)
     return n
 
+def test_hybrid(f, tol, a, b, N):
+    i = 0
+    h = None
 
+    while h == None:
+        h = bisection(g, -5, 5, t, i)
+        i += 1
+    print(i)
 
 
 def dist(x):
@@ -64,10 +71,3 @@ t = 10**(-10)
 
 
 n = newton(g, x1, t)
-i = 0
-h = None
-
-while h == None:
-    h = bisection(g, -5, 5, t, i)
-    i += 1
-print(i)
