@@ -21,11 +21,14 @@ B = np.array([1, 0, 0, -1, 0, 0, 0, 0])
 
 
 
-S = np.linalg.lstsq(A, B)
-S0 = S[0]
-S1 = S[3]
-a0, b0, c0, d0 = S0[0], S0[1], S0[2], S0[3]
-a1, b1, c1, d1 = S1[0], S1[1], S1[2], S1[3]
+#S = np.linalg.lstsq(A, B)
+#S0 = S[0]
+#S1 = S[3]
+#a0, b0, c0, d0 = S0[0], S0[1], S0[2], S0[3]
+#a1, b1, c1, d1 = S1[0], S1[1], S1[2], S1[3]
+
+X = np.matmul(np.linalg.inv(A), B)
+print(X)
 
 
 
@@ -42,8 +45,5 @@ def spline(x):
             )
     return results
             
-x = np.linspace(0, pi, 256, endpoint=True)
-a = spline(x)
+x = np.linspace(0, pi, 15, endpoint=True)
 
-plt.plot(x, a)
-plt.show()
