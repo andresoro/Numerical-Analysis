@@ -6,30 +6,20 @@ pi = np.pi
 pih = pi/2
 
 A = np.array([
-    [1, 0, 0, 0],
-    [1, pih, pih**2, pih**3],
-    [1, 0, 0, 0],
-    [1, pih, pih**2, pih**3],
-    [0, 1, pi, (3*(pih)**2)],
-    [0, 2, 3*pi, -2],
-    [0, 1, 0, 0],
-    [0, 0, pi, 3*pi]
+    [1, 0, 0, 0, 0, 0, 0, 0],
+    [1, pih, pih**2, pih**3, 0, 0, 0, 0],
+    [0, 0, 0, 0, 1, 0, 0, 0],
+    [0, 0, 0, 0, 1, pih, pih**2, pih**3],
+    [0, 1, pi, (3*(pih)**2),0 , -1, 0, 0],
+    [0, 2, 3*pi, -2, 0, 0, -2, 0],
+    [0, 1, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, pi, 3*pi]
 ])
 
 B = np.array([1, 0, 0, -1, 0, 0, 0, 0])
 
-
-
-
-S = np.linalg.lstsq(A, B)
-S0 = S[0]
-S1 = S[3]
-a0, b0, c0, d0 = S0[0], S0[1], S0[2], S0[3]
-a1, b1, c1, d1 = S1[0], S1[1], S1[2], S1[3]
-
-X = np.matmul(A.T, B)
-print(X)
-
+inv = np.linalg.inv(A)
+X = np.matmul(inv, B)
 
 
 def spline(x):
@@ -37,13 +27,17 @@ def spline(x):
     for i in x:  
         if i <= pih:
             results.append(
-                a0 + (b0*i) + (c0*(i**2)) + (d0*(i**3)) 
+                X[0] + (X[1]*i) + (X[2]*(i**2)) + (X[3]*(i**3)) 
             )
         if i > pih:
             results.append(
-                a1 + b1*(i-pih) + (c1*(i-pih)**2) + (d1*(i-pih)**3)
+                X[4] + (X[5]*(i-pih)) + (X[6]*(i-pih)**2) + (X[7]*(i-pih)**3)
             )
     return results
             
-x = np.linspace(0, pi, 15, endpoint=True)
 
+x = np.linspace(0, pi, 100)
+spl = spline(x)
+
+plt.plot(x, spl)
+plt.show()
