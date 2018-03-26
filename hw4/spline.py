@@ -19,12 +19,12 @@ A = np.array([
 B = np.array([1, 0, 0, -1, 0, 0, 0, 0])
 
 inv = np.linalg.inv(A)
-X = np.matmul(inv, B)
+X = np.matmul(inv, B.T)
 
 
 def spline(x):
     results = []
-    for i in x:  
+    for i in x:
         if i <= pih:
             results.append(
                 X[0] + (X[1]*i) + (X[2]*(i**2)) + (X[3]*(i**3)) 
@@ -36,8 +36,9 @@ def spline(x):
     return results
             
 
-x = np.linspace(0, pi, 100)
+x = np.linspace(0, pi, 60)
 spl = spline(x)
 
-plt.plot(x, spl)
+plt.plot(x, spl, 'C1')
+plt.plot(x, np.cos(x), 'C2')
 plt.show()
