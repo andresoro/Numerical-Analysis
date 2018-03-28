@@ -9,14 +9,22 @@ from matplotlib import pyplot as plt
 
 def compare(func, n):
     domain = np.linspace(0, n, n+1)
+    domain2 = np.linspace(0, n, n*10)
     mapping = [func(i) for i in domain]
     
     r = radial(domain, mapping, function='gaussian')
+    c = cubic(domain, mapping, bc_type='natural')
     
-    plt.plot(domain, r(domain))
+    #plt.plot(domain2, f(domain2), 'g')
+    plt.plot(domain2, r(domain2), 'b', label="Radial")
+    plt.plot(domain2, c(domain2), 'r', label="Cubic")
+    plt.legend(loc='lower left')
     
     plt.show()
 
 def f(x):
-    return np.sin(x)
-compare(f, 20)
+    return 2*np.sin(x)
+
+
+
+compare(f, 10)
