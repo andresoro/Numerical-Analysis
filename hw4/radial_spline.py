@@ -15,7 +15,7 @@ def compare(func, n):
     r = radial(domain, mapping, function='gaussian')
     c = cubic(domain, mapping, bc_type='natural')
     
-    #plt.plot(domain2, f(domain2), 'g')
+    plt.plot(domain2, f(domain2), 'g', label="Actual")
     plt.plot(domain2, r(domain2), 'b', label="Radial")
     plt.plot(domain2, c(domain2), 'r', label="Cubic")
     plt.legend(loc='lower left')
@@ -23,7 +23,11 @@ def compare(func, n):
     plt.show()
 
 def f(x):
-    return 2*np.sin(x)
+    if isinstance(x, list):
+        for i in x:
+            return [2*np.sin(i) for i in x]
+    else:
+        return 2*np.sin(x)
 
 
 
