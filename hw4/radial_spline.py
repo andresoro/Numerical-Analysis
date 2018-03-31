@@ -7,17 +7,18 @@ from matplotlib import pyplot as plt
 # The funciton compare plots the cubic and raidal interpolation methods
 # for a given function f over a evenly spaced interval n
 
-def compare(func, n):
-    domain = np.linspace(0, n, n+1)
-    domain2 = np.linspace(0, n, n*10)
+def compare(func, n, p):
+    domain = np.linspace(0, n, p)
+    domain2 = np.linspace(0, n, p*10)
     mapping = [func(i) for i in domain]
+    e = (n/p)*(1/10)
     
-    r = radial(domain, mapping, function='gaussian')
+    r = radial(domain, mapping, function='gaussian', episolon=e)
     c = cubic(domain, mapping, bc_type='natural')
     
-    plt.plot(domain2, f(domain2), 'g', label="Actual")
+    plt.plot(domain2, func(domain2), 'g', label="Actual")
     plt.plot(domain2, r(domain2), 'b', label="Radial")
-    plt.plot(domain2, c(domain2), 'r', label="Cubic")
+    #plt.plot(domain2, c(domain2), 'r', label="Cubic")
     plt.legend(loc='lower left')
     
     plt.show()
@@ -31,4 +32,4 @@ def f(x):
 
 
 
-compare(f, 10)
+compare(f, np.pi, 10)
