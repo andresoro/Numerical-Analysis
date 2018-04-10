@@ -1,6 +1,7 @@
 # Monte Carlo method 
 
 import random
+from multi_gauss import multi_gauss
 
 random.seed()
 
