@@ -22,8 +22,13 @@ def test_multi_gauss():
     cov = np.eye(2)
     print(multi_gauss(x, mu, cov))
 
+# vectorize takes in a domain of values and returns
+# vector of dimension D (x, mu)
+def vectorize(domain, D):
+    pass
+
 if __name__ == '__main__':
-    domain = np.linspace(-5, 5, 200)
+    domain = np.linspace(-1, 1, 200)
     mu = np.array([0])
     vec = [np.array([i]) for i in domain]
     ran = [multi_gauss(i, mu, np.eye(1)) for i in vec]
