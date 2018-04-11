@@ -1,12 +1,17 @@
 # Monte Carlo method 
 
 import random
+import numpy as np
 from multi_gauss import multi_gauss
+from scipy import integrate
 
 random.seed()
 
 def f(x):
-    return x**2 + 2
+    x = np.array(x)
+    mu = np.zeros(x.size)
+    cov = np.eye(x.size)
+    return multi_gauss(x, mu, cov)
 
 def monte_carlo(f, N):
     total = 0
@@ -16,7 +21,7 @@ def monte_carlo(f, N):
         total = total + f(x)
     return (2*total) / N
 
-exact = 14/3
+exact = integrate.quad(f, -1, 1)
 error = abs(monte_carlo(f, 100) - exact)
 total = monte_carlo(f, 100)
 
