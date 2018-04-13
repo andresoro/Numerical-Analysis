@@ -14,7 +14,7 @@ def monte_carlo(a, b):
     xmin = a
     xmax = b
     # find ymin-ymax
-    numSteps = 10000 
+    numSteps = 1000 
     ymin = f(xmin)
     ymax = ymin
     for i in range(numSteps):
@@ -25,7 +25,7 @@ def monte_carlo(a, b):
 
     # Monte Carlo
     rectArea = (xmax - xmin) * (ymax - ymin)
-    numPoints = 10000 
+    numPoints = 1000
     ctr = 0
     for j in range(numPoints):
         x = xmin + (xmax - xmin) * random.random()

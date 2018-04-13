@@ -12,6 +12,8 @@ def multi_gauss(x):
     x = np.array(x)
     mu = np.zeros(x.size)
     cov = np.eye(x.size)
+    np.fill_diagonal(cov, 0.1)
+    
 
     numerator =  (-1/2) * ((x-mu).T.dot(np.linalg.inv(cov))).dot((x-mu))
     denominator =  1 / ( ((2* np.pi)**(len(mu)/2)) * (np.linalg.det(cov)**(1/2)) )
@@ -32,7 +34,6 @@ if __name__ == '__main__':
     mu = np.array([0])
     vec = [np.array([i]) for i in domain]
     ran = [multi_gauss(i) for i in vec]
-    
+
     plt.plot(domain, ran)
     plt.show()
-    
