@@ -1,30 +1,41 @@
 # Monte Carlo method 
 
 import random
+import math
 import numpy as np
 from multi_gauss import multi_gauss
 from scipy import integrate
 
-random.seed()
-
+# define any function here!
 def f(x):
-    x = np.array(x)
-    mu = np.zeros(x.size)
-    cov = np.eye(x.size)
-    return multi_gauss(x, mu, cov)
+    return multi_gauss(x)
 
-def monte_carlo(f, N):
-    total = 0
-    for x in range(N - 1):
-        x = random.randint(-1, 1)
-        x = 2*(x-.5)
-        total = total + f(x)
-    return (2*total) / N
+# define any xmin-xmax interval here! (xmin < xmax)
+xmin = -1
+xmax = 1
+# find ymin-ymax
+numSteps = 10000 # bigger the better but slower!
+ymin = f(xmin)
+ymax = ymin
+for i in range(numSteps):
+    x = xmin + (xmax - xmin) * float(i) / numSteps
+    y = f(x)
+    if y < ymin: ymin = y
+    if y > ymax: ymax = y
 
-exact = integrate.quad(f, -1, 1)
-error = abs(monte_carlo(f, 100) - exact)
-total = monte_carlo(f, 100)
+# Monte Carlo
+rectArea = (xmax - xmin) * (ymax - ymin)
+numPoints = 10000 # bigger the better but slower!
+ctr = 0
+for j in range(numPoints):
+    x = xmin + (xmax - xmin) * random.random()
+    y = ymin + (ymax - ymin) * random.random()
+    if math.fabs(y) <= math.fabs(f(x)):
+        if f(x) > 0 and y > 0 and y <= f(x):
+            ctr += 1 # area over x-axis is positive
+        if f(x) < 0 and y < 0 and y >= f(x):
+            ctr -= 1 # area under x-axis is negative
 
-print("approx: ", total)
-print("exact: ", exact)
-print("error: ", error)
+fnArea = rectArea * float(ctr) / numPoints
+
+print("Numerical integration = " + str(fnArea))
