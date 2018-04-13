@@ -4,6 +4,8 @@
 
 import numpy as np
 from multi_gauss import multi_gauss
+from matplotlib import pyplot as plt
+from scipy import integrate
 
 # recursive legendre polynomial
 def legendre(n, x):
@@ -33,9 +35,14 @@ def GLQuadrature(func, order, a, b):
     [xs, Ws] = LegendreRootsAndWeights(order)
     return  (b-a)*0.5*sum(Ws*func((b-a)*0.5*xs + (b+a)*0.5))
 
+#define func and interval
+a = -1
+b = 1
+f = lambda x: multi_gauss(x)
 
-if __name__ == '__main__':
-    order = 3
-    
-    [ans, err] = GLQuadrature(multi_gauss, order, -1, 1)
-    print(ans)
+deg = 2
+x, w = np.polynomial.legendre.leggauss(deg)
+gauss = sum(w * f(x))
+X = np.linspace(a, b, 100)
+
+print(gauss)

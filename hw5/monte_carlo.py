@@ -6,15 +6,14 @@ import numpy as np
 from multi_gauss import multi_gauss
 from scipy import integrate
 
-# define any function here!
 def f(x):
     return multi_gauss(x)
 
-# define any xmin-xmax interval here! (xmin < xmax)
+
 xmin = -1
 xmax = 1
 # find ymin-ymax
-numSteps = 10000 # bigger the better but slower!
+numSteps = 10000 
 ymin = f(xmin)
 ymax = ymin
 for i in range(numSteps):
@@ -25,7 +24,7 @@ for i in range(numSteps):
 
 # Monte Carlo
 rectArea = (xmax - xmin) * (ymax - ymin)
-numPoints = 10000 # bigger the better but slower!
+numPoints = 10000 
 ctr = 0
 for j in range(numPoints):
     x = xmin + (xmax - xmin) * random.random()
