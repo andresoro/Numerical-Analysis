@@ -38,11 +38,10 @@ def GLQuadrature(func, order, a, b):
 #define func and interval
 a = -1
 b = 1
-f = lambda x: multi_gauss(x)
 
-deg = 2
-x, w = np.polynomial.legendre.leggauss(deg)
-gauss = sum(w * f(x))
-X = np.linspace(a, b, 100)
 
+deg = 8
+y, w = np.polynomial.legendre.leggauss(deg)
+f = [multi_gauss(i) for i in y]
+gauss = sum(w * f)
 print(gauss)
