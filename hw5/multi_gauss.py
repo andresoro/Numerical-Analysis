@@ -2,14 +2,16 @@
 
 import numpy as np
 from matplotlib import pyplot as plt
+from scipy.stats import multivariate_normal
+from mpl_toolkits import mplot3d
 
 def multi_gauss(x):
     """
     x and mu must be vectors with same dimensions
     cov is a symmetric positive definite matrix
     """
-
     x = np.array(x)
+  
     mu = np.zeros(x.size)
     cov = np.eye(x.size)
     np.fill_diagonal(cov, 0.1)
@@ -23,17 +25,12 @@ def multi_gauss(x):
     return (numerator*denominator)
 
 def test_multi_gauss():
-    x = np.array([[0], [0], [0]])
-    mu = np.array([[0], [0], [0]])
-    cov = np.eye(3)
-    print(multi_gauss(x, mu, cov))
-
+    x = np.linspace(-1, 1, 100)
+    y = [multi_gauss(i) for i in x]
+    plt.plot(x, y)
+    plt.show()
 
 if __name__ == '__main__':
-    domain = np.linspace(-10, 10, 200)
-    mu = np.array([0])
-    vec = [np.array([i]) for i in domain]
-    ran = [multi_gauss(i) for i in vec]
-
-    plt.plot(domain, ran)
-    plt.show()
+    test_multi_gauss()
+    
+   
