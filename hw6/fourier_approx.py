@@ -18,23 +18,17 @@ def coefficients(xj, m, f):
     ak = []
     bk = []
 
-    sum = []
-    for k in range(m):
+    for k in range(0, m):
+        sig = 0
         for j in xj:
-            sum.append(
-                (1/m)* f(j)*np.cos(k*j)
-            )
-    ak = sum
+            sig += f(j)*np.cos(k*j)
+        ak.append((1/m)*sig)
 
-
-    sum = []
-    for k in range(m-1):
+    for k in range(0, m-1):
+        sig = 0
         for j in xj:
-            sum.append(
-                (1/m)*f(j)*np.sin(k*j)
-                )
-    bk = sum
-
+            sig += f(j)*np.sin(k*j)
+        bk.append((1/m)*sig)  
 
     return ak, bk
 
@@ -47,19 +41,37 @@ def nodes(m):
     return xj
 
 # Discrete fourier approximaton for a given function on an interval
-def fourier_approx(f, a, b):
-    pass
+def fourier_approx(f, x, m):
+    xj = nodes(m)
+    ak, bk = coefficients(xj, m, f)
 
-domain = np.linspace(a, b, 100)
-mapping1 = [sigmoid(x) for x in domain]
-mapping2 = [sigmoid(x) for x in domain]
-mapping3 = [sigmoid(x) for x in domain]
+    term1 = ak[0]/2
+    term2 = ak[m-1]*np.cos(m*x) 
+    term3 = 0
 
+    for k in range(1, m-1):
+        s = ak[k]
+        c = np.cos(k*x)
 
+        s2 = bk[k]
+        c2 = np.sin(k*x)
+        term3 += (s*c + s2*c2) 
+
+    return term1 + term2 + term3
 
 
 if __name__ == '__main__':
-    m = 10
-    nodes = nodes(m)
-    ak, bk = coefficients(nodes, m, sigmoid)
-    print(ak)
+    m = 100
+    domain = np.linspace(a, b, m)
+    actual = [sigmoid(x) for x in domain]
+
+    approx = [fourier_approx(sigmoid, x, m) for x in domain]
+
+    plt.plot(domain, actual, 'C1', label="Actual")
+    plt.plot(domain, approx, 'C2', label="Approx")
+    plt.show()
+
+    
+
+    
+
