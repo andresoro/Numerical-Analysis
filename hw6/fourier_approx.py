@@ -61,7 +61,7 @@ def fourier_approx(f, x, m):
 
 
 if __name__ == '__main__':
-    m = 100
+    m = 25
     domain = np.linspace(a, b, m)
     actual = [sigmoid(x) for x in domain]
 
