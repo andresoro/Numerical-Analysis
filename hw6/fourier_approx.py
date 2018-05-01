@@ -61,8 +61,9 @@ def fourier_approx(f, x, m):
 
 
 if __name__ == '__main__':
-    m = 25
-    domain = np.linspace(a, b, m)
+    m = 50
+    n=200
+    domain = np.linspace(a, b, n)
     actual = [sigmoid(x) for x in domain]
 
     approx = [fourier_approx(sigmoid, x, m) for x in domain]
